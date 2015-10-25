@@ -13,7 +13,7 @@ GPIO.setup(18,GPIO.OUT)
 GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #Initialise variables
-dbName = 'mixology.db'
+dbName = 'drinktionary.db'
 rotations = 0
 mlCount = 0
 drinkName = ""
@@ -35,20 +35,23 @@ def liquidflowMeasurement(channel):
     sys.stdout.write('ml dispensed: ' + str(mlCount) + '\r')
     sys.stdout.flush()
 
-#Add event listener
+#Add event listener to listen for flowmeter signal
 GPIO.add_event_detect(21, GPIO.FALLING, callback=liquidflowMeasurement)
 
 #Function definitions
 
+#Checks if any parameters were passed when this was called, if not exit
 def getInputArguments():    
     if len(sys.argv) == 1:
         GPIO.cleanup()
         sys.exit("ERROR: no arguments supplied to mixologist.py (getInputArguments())")   
     return str(sys.argv[1])
 
+#Query database with name of drink, sets how many revolutions the flowmeter will do
 def getDatabaseOutput():
     global drinkName
     global fluidQuantity1
+    #If the next statement fails the program exits
     userInput = getInputArguments()    
     #create connection string
     conn = sqlite3.connect(dbName)
@@ -71,7 +74,8 @@ def getDatabaseOutput():
     #Close connection
     conn.close()
     
-    
+''' Controls the gpio pins on the rPi. Opens the solenoid, once the number of flowmeter revolutions completes
+The solenoid closes '''
 def processGPIO():
     try:    
         GPIO.output(18, GPIO.HIGH)
@@ -81,7 +85,6 @@ def processGPIO():
             dumbNum = 1
             
         GPIO.output(18, GPIO.HIGH)
-        #global drinkName
         sys.stdout.write('\n\r')
         sys.stdout.flush()
         sys.stdout.write('Enjoy your %s \n\r' % (drinkName))
