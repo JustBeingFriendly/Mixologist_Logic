@@ -9,8 +9,8 @@ from time import sleep
 #Initialise GPIO 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(18,GPIO.OUT)
-GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(18,GPIO.OUT) #Solenoid
+GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Liquid Flowmeter
 
 #Initialise variables
 dbName = 'drinktionary.db'
