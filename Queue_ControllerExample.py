@@ -1,41 +1,21 @@
 #!/usr/bin/env python
 
+'''
+Hey this is an overlong example of how the queues and lists will return values
+This is ment to be run from the command line but can be easily cut and paste into bottle to get a return
+If your having trouble let me know :D
+'''
+
 from collections import deque
 from collections import namedtuple
 
-theQueue = deque()
-HighestOrderNumber = 0
-order = namedtuple('DrinkOrder', ['UserID', 'Drink', 'OrderNumber'])
 
-def addAndroidToQueue(inTuple):    
-    global order
-    global HighestOrderNumber
-    global theQueue
-    HighestOrderNumber += 1
-    aTuple = order(inTuple[0], inTuple[1], HighestOrderNumber)    
-    theQueue.append(aTuple)    
-    print theQueue[-1]
-    
-def addWebToQueue():
-    global HighestOrderNumber
-    HighestOrderNumber += 1
-
-def androidSimulator():
-    global order
-    nt = ('Mr_Android', 'Rum and Coke')
-    j = 5
-    i = 0
-    while i < j:
-        addAndroidToQueue(nt)
-        i += 1    
-
-androidSimulator()
-
-'''
+#class QueueControl:
 def createDeque():
-    global order
     aList = [] #This will be returned at the end
     d = deque([],10) #Creates an empty deque [pronounced deck]
+    order = namedtuple('DrinkOrder', ['UserID', 'Drink', 'OrderNumber']) #Creates a namedtuple
+
     nt = order('Mr_Android', 'Coke', 123)#Add values to the value fields of the named tuple
     d.append(nt) #Append the named tupple to the deque
     nt = order('Mr_Web', 'Vodka', 124)
@@ -50,36 +30,34 @@ def createDeque():
         aList.append(tup)
     return aList
 
-
 def tupInterpret():
-    global order
     bList = createDeque()
-    tup = (bList[0][0], bList[0][1])
-    addAndroidToQueue(tup)
-    
-    
     print '\nTuple in position 0 in bList: '
-    print [0]
+    print bList[0][0]
     print bList[0][1]
     print bList[0][2]
     print bList[0]
-    print '\nTuple 3 in position 3 in bList out of order: '
+    print '\nTuple 3 in position 3 in bList in reverse order: '
+    print bList[3][2]
     print bList[3][1]
     print bList[3][0]
-    print bList[3][2]
     print bList[3]
-    print '\nAll elements for Mr_Web in bList: '    
+    print '\nAll elements for Mr_Web in bList: '
     for tp in bList:
         if tp[1] == 'Mr_Web':
             print tp
     print '\nAll elements for Mr_Android in bList: '
     for tp in bList:
         if tp[1] == 'Mr_Android':
-            print tp
-   
-    
-    
-tupInterpret()
-'''
+            print tp    
 
+tupInterpret()
+
+
+
+'''
+print tup[1:]
+print tup1[0:]
+
+'''
 
