@@ -18,18 +18,19 @@ def addAndroidToQueue(inTuple):
     
 def addWebToQueue():
     global HighestOrderNumber
+    global theQueue
     HighestOrderNumber += 1
 
 def androidSimulator():
     global order
-    nt = ('Mr_Android', 'Rum and Coke')
+    tempTup = ('Mr_Android', 'Rum and Coke')
     j = 5
     i = 0
     while i < j:
-        addAndroidToQueue(nt)
+        addAndroidToQueue(tempTup)
         i += 1    
 
-androidSimulator()
+#androidSimulator()
 
 '''
 def createDeque():
