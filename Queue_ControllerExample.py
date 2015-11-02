@@ -10,7 +10,6 @@ from collections import deque
 from collections import namedtuple
 
 
-#class QueueControl:
 def createDeque():
     aList = [] #This will be returned at the end
     d = deque([],10) #Creates an empty deque [pronounced deck]
@@ -30,6 +29,16 @@ def createDeque():
         aList.append(tup)
     return aList
 
+def clientQueue(UserID):
+    bList = createDeque()
+    cList = []
+    for element in bList:
+        if element[1] == UserID:
+            cList.append(element)
+        
+    return cList
+
+'''  
 def tupInterpret():
     bList = createDeque()
     print '\nTuple in position 0 in bList: '
@@ -51,13 +60,5 @@ def tupInterpret():
         if tp[1] == 'Mr_Android':
             print tp    
 
-tupInterpret()
-
-
 
 '''
-print tup[1:]
-print tup1[0:]
-
-'''
-
