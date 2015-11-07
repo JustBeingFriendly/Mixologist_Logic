@@ -3,18 +3,17 @@
 from bottle import route, run, post, put, request
 import json
 import sqlite3
-from Queue_Controller import addAndroidToQueue
+from Queue_Controller import addAndroidToQueue, userOrderQueue
 
-#This is intended as an example of a json return
-@route('/', method='GET')
+#This uiytrjyutd a json return
+@route('/drinksList', method='GET')
 def drink_send():
     drinkList = []
-    drinkList = list_drink()
-    #return json.JSONEncoder(drinkList)
+    drinkList = get_drinks_List()
     return json.dumps(drinkList)
 
-#Called from drink_send, this retrieves the drink list from the drinktionary
-def list_drink():
+#Retrieves available drinks list from drinktionary
+def get_drinks_List():
     conn = sqlite3.connect('drinktionary.db')
     c = conn.cursor()    
     c.execute('SELECT name FROM drinks')
@@ -27,13 +26,19 @@ def list_drink():
 #Receives a json object, process it, then returns it to sender
 @route('/chooseDrink', method='PUT')
 def choose_drink():
-    id = request.json['id']
-    drink = request.json['drink']
-    tup = (id, drink)    
-    addAndroidToQueue(tup)
-    return json.dumps({"Confirmed" : "yes it is", "Time" : 30})
+    id = request.json['UserID']
+    drink = request.json['Drink']
+    tup = (id, drink)
+    
+    orderNumAndTime = addAndroidToQueue(tup)
+    return json.dumps({"OrderNumber" : orderNumAndTime[0], "Time" : orderNumAndTime[1]})
 
-
+@route('/getQueue', method='PUT')
+def get_Queue():
+    UserID = request.json['UserID']
+    aList = userOrderQueue(UserID)
+    #print aList
+    return json.dumps(aList)
     
 run (host='192.168.0.107', port=8081, debug=True)
 

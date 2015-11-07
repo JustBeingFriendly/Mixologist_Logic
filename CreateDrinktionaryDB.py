@@ -26,11 +26,11 @@ def createDB():
                         )''')
 
         #insert a row of data
-        c.execute("INSERT INTO drinks VALUES(1 ,'Coke'      ,39,0 ,0 )")
-        c.execute("INSERT INTO drinks VALUES(2 ,'Coke_Rum'  ,26,13,0 )")
-        c.execute("INSERT INTO drinks VALUES(3 ,'Coke_Vodka',26,0 ,13)")
-        c.execute("INSERT INTO drinks VALUES(4 ,'Rum_Neat  ',0 ,13,0 )")
-        c.execute("INSERT INTO drinks VALUES(5 ,'Vodka_Neat',0 ,0 ,13)")
+        c.execute("INSERT INTO drinks VALUES( 1,'Coke'        ,39, 0, 0)")
+        c.execute("INSERT INTO drinks VALUES( 2,'Rum & Coke'  ,26,13, 0)")
+        c.execute("INSERT INTO drinks VALUES( 3,'Vodka & Coke',26, 0,13)")
+        c.execute("INSERT INTO drinks VALUES( 4,'Rum Neat'    , 0,13, 0)")
+        c.execute("INSERT INTO drinks VALUES( 5,'Vodka Neat'  , 0, 0,13)")
 
         #Save (commit) the changes
         conn.commit()
