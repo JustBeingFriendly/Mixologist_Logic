@@ -9,8 +9,12 @@ from Queue_Controller import addAndroidToQueue, userOrderQueue
 @route('/drinksList', method='GET')
 def drink_send():
     drinkList = []
-    drinkList = get_drinks_List()
-    return json.dumps(drinkList)
+    drinkList = get_drinks_List()    
+    jsonObject = []
+    for item in drinkList:
+        data = {"DrinkName" : item}
+        jsonObject.append(data)
+    return json.dumps(jsonObject)
 
 #Retrieves available drinks list from drinktionary
 def get_drinks_List():
@@ -37,8 +41,20 @@ def choose_drink():
 def get_Queue():
     UserID = request.json['UserID']
     aList = userOrderQueue(UserID)
-    #print aList
-    return json.dumps(aList)
+    for item in aList:
+        print item[0]
+        
+    jsonObject = []
+    for item in aList:
+        data = {"Drink" : item[0], "OrderID" : item[1]}
+        jsonObject.append(data)
+    
+    for item in jsonObject:
+         print item
+
+    #print jsonObject 
+    #return json.dumps(aList)
+    return json.dumps(jsonObject)
     
 run (host='192.168.0.107', port=8081, debug=True)
 
