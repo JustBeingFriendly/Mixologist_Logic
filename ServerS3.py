@@ -27,7 +27,7 @@ def get_drinks_List():
     conn.close()
     return drinkList
 
-#Receives a json object, process it, then returns it to sender
+#Receives a json object, process it, then return ordernumber and time till ready
 @route('/chooseDrink', method='PUT')
 def choose_drink():
     id = request.json['UserID']
