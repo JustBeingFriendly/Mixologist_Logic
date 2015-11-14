@@ -13,7 +13,7 @@ def addAndroidToQueue(inTuple):
     global theQueue
     OrderNumber += 1
     aTuple = order(inTuple[0], inTuple[1], OrderNumber)    
-    theQueue.append(aTuple)    
+    theQueue.append(aTuple)
     timeTillPour = len(theQueue) * 30
     orderNumAndTime = (OrderNumber, timeTillPour)
     return orderNumAndTime
@@ -29,20 +29,22 @@ def removeOrderFromQueue(OrderID):
     global theQueue
     tempQueue = deque()
     for item in theQueue:
-        if item[2] != OrderID:
+        if item[2] != int(OrderID):
             tempQueue.append(item)
     theQueue.clear()
     theQueue = tempQueue
+    tempQueue = deque()
+    
     
 def userOrderQueue(UserID):
     global theQueue
     aList = []    
-    for item in theQueue:
+    for item in theQueue:        
         if (item[0] == UserID):
             tup = (item[1],item[2])
             aList.append(tup)
     return aList
-
+'''
 def test():
     tup = ("Mr_Android", "Coke")
     addAndroidToQueue(tup)
@@ -55,3 +57,8 @@ def test():
     for item in theQueue:
         print item
 test()
+jList = userOrderQueue("Mr_Android")
+print "queue test"
+for item in jList:
+    print item
+'''

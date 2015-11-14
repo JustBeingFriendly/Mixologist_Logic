@@ -40,7 +40,7 @@ def clientQueue(UserID):
     global theQueue
     aList = []
     for element in theQueue:
-        if element[1] == UserID:
+        if element[0] == UserID:
             aList.append(element)        
     return aList
 

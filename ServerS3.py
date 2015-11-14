@@ -3,7 +3,7 @@
 from bottle import route, run, post, put, request
 import json
 import sqlite3
-from Queue_Controller import addAndroidToQueue, userOrderQueue
+from Queue_Controller import addAndroidToQueue, userOrderQueue, removeOrderFromQueue
 
 #This uiytrjyutd a json return
 @route('/drinksList', method='GET')
@@ -40,22 +40,20 @@ def choose_drink():
 @route('/getQueue', method='PUT')
 def get_Queue():
     UserID = request.json['UserID']
-    aList = userOrderQueue(UserID)
-    for item in aList:
-        print item[0]
-        
+    aList = userOrderQueue(UserID)    
     jsonObject = []
     for item in aList:
         data = {"Drink" : item[0], "OrderID" : item[1]}
         jsonObject.append(data)
-    
-    for item in jsonObject:
-         print item
-
-    #print jsonObject 
-    #return json.dumps(aList)
     return json.dumps(jsonObject)
+
+
+@route('/cancelOrder', method='PUT')
+def cancel_Order():
+    OrderID = request.json['OrderID']
+    removeOrderFromQueue(OrderID)
     
+
 run (host='192.168.0.107', port=8081, debug=True)
 
 
