@@ -20,17 +20,17 @@ def createDB():
         c.execute('''CREATE TABLE drinks (
                         id INTEGER PRIMARYKEY,
                         name TEXT,
-                        fluidQuantity1 INTEGER,
-                        fluidQuantity2 INTEGER,
-                        fluidQuantity3 INTEGER
+                        Rum INTEGER,
+                        Vodka INTEGER,
+                        Coke INTEGER
                         )''')
 
         #insert a row of data
-        c.execute("INSERT INTO drinks VALUES( 1,' Coke'       ,39, 0, 0)")
-        c.execute("INSERT INTO drinks VALUES( 2,'Rum & Coke'  ,26,13, 0)")
-        c.execute("INSERT INTO drinks VALUES( 3,'Vodka & Coke',26, 0,13)")
-        c.execute("INSERT INTO drinks VALUES( 4,'Rum Neat'    , 0,13, 0)")
-        c.execute("INSERT INTO drinks VALUES( 5,'Vodka Neat'  , 0, 0,13)")
+        c.execute("INSERT INTO drinks VALUES( 1,'Rum Neat'        ,18, 0, 0)")
+        c.execute("INSERT INTO drinks VALUES( 2,'Vodka Neat'      , 0,18, 0)")
+        c.execute("INSERT INTO drinks VALUES( 3,'Rum & Coke'      ,18, 0,39)")
+        c.execute("INSERT INTO drinks VALUES( 4,'Vodka & Coke'    , 0,18,39)")
+        c.execute("INSERT INTO drinks VALUES( 5,'Coke'            , 0, 0,39)")
 
         #Save (commit) the changes
         conn.commit()
