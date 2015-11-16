@@ -34,8 +34,7 @@ def removeOrderFromQueue(OrderID):
     theQueue.clear()
     theQueue = tempQueue
     tempQueue = deque()
-    
-    
+        
 def userOrderQueue(UserID):
     global theQueue
     aList = []    
@@ -44,19 +43,37 @@ def userOrderQueue(UserID):
             tup = (item[1],item[2])
             aList.append(tup)
     return aList
+
+def firstInQueue(UserID):
+    global theQueue
+    if theQueue:
+        aTup = theQueue[0]
+        if aTup[0] == UserID:
+            return aTup
+    else:
+        aTup = ("Not Yet", "Not Yet","Not Yet")
+        return aTup
+    
 '''
 def test():
+    tup = ("Mr_Android", "Rum & Coke")
+    addAndroidToQueue(tup)
     tup = ("Mr_Android", "Coke")
     addAndroidToQueue(tup)
+    tup = ("Mr_Android", "Vodka & Coke")
     addAndroidToQueue(tup)
-    addAndroidToQueue(tup)
+    firstInQueue()
+  
     global theQueue
     for item in theQueue:
         print item
     removeOrderFromQueue(3)
     for item in theQueue:
         print item
+       
 test()
+
+
 jList = userOrderQueue("Mr_Android")
 print "queue test"
 for item in jList:

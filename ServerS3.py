@@ -3,7 +3,7 @@
 from bottle import route, run, post, put, request
 import json
 import sqlite3
-from Queue_Controller import addAndroidToQueue, userOrderQueue, removeOrderFromQueue
+from Queue_Controller import addAndroidToQueue, userOrderQueue, removeOrderFromQueue, firstInQueue
 
 #This uiytrjyutd a json return
 @route('/drinksList', method='GET')
@@ -32,8 +32,7 @@ def get_drinks_List():
 def choose_drink():
     id = request.json['UserID']
     drink = request.json['Drink']
-    tup = (id, drink)
-    
+    tup = (id, drink)    
     orderNumAndTime = addAndroidToQueue(tup)
     return json.dumps({"OrderNumber" : orderNumAndTime[0], "Time" : orderNumAndTime[1]})
 
@@ -47,13 +46,21 @@ def get_Queue():
         jsonObject.append(data)
     return json.dumps(jsonObject)
 
-
 @route('/cancelOrder', method='PUT')
 def cancel_Order():
     OrderID = request.json['OrderID']
     removeOrderFromQueue(OrderID)
     
-
+@route('/firstInQueue', method='PUT')
+def getFirstInQueue():
+    UserID = request.json['UserID']
+    aTup = firstInQueue(UserID)    
+    #if all aTup:
+    return json.dumps({"UserID" : aTup[0], "Drink" : aTup[1],"OrderID" : aTup[2]})
+    #else:
+      #  return json.dumps({"UserID" : "Not Yet", "Drink" : "Not Yet","OrderID" : "Not Yet"})
+    
+    
 run (host='192.168.0.107', port=8081, debug=True)
 
 
