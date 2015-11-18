@@ -1,0 +1,23 @@
+------- Things to change to make run on RPi -------
+
+I) Line: 5
+  make sure all the imports are the correct ones
+
+II) Line: 8,9,10 
+  make sure that the initial variables are set to what you wnat them to be.
+  
+III) Line: 12, 13
+  to make this script link witht he DB we have to install bottle-sqlite, 
+  should be able to pip install bottle-sqlite otherwise checkout - 
+  https://pypi.python.org/pypi/bottle-sqlite/
+  
+IV) Line: 182,183,184
+  check my setup / import of the list with the tuples in it because it 
+  looks slightly different to the one i used as an example.
+  
+V) Line: 230,235,249,263 
+  not really anything to check, thses are just the lines calling the 
+  cancelations form the list. 
+
+NotaBene// to implement this file, just place in the directory with the other  app server and run as normal, should be good as gold :) The part im most nervous about is the way i get the lists from your script, thats task number IV above other than that shes all good when i test it here. Also i provided a copy of the bottle.py in case you needed it 
+  
