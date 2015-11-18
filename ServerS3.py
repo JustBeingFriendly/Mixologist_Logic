@@ -3,7 +3,8 @@
 from bottle import route, run, post, put, request
 import json
 import sqlite3
-from Queue_Controller import addAndroidToQueue, userOrderQueue, removeOrderFromQueue, firstInQueue
+import RPi.GPIO as GPIO
+from Queue_Controller import addAndroidToQueue, userOrderQueue, removeOrderFromQueue, firstInQueue, beginDrinkPouring
 
 #This uiytrjyutd a json return
 @route('/drinksList', method='GET')
@@ -54,13 +55,24 @@ def cancel_Order():
 @route('/firstInQueue', method='PUT')
 def getFirstInQueue():
     UserID = request.json['UserID']
-    aTup = firstInQueue(UserID)    
-    #if all aTup:
+    aTup = firstInQueue(UserID)   
     return json.dumps({"UserID" : aTup[0], "Drink" : aTup[1],"OrderID" : aTup[2]})
-    #else:
-      #  return json.dumps({"UserID" : "Not Yet", "Drink" : "Not Yet","OrderID" : "Not Yet"})
-    
-    
-run (host='192.168.0.107', port=8081, debug=True)
 
+@route('/pourDrink', method='PUT')
+def pourTheDrink():
+    OrderID = request.json['OrderID']
+    aString = beginDrinkPouring(OrderID)
+    return ({"ServerSays" : aString})
+    #aTup = firstInQueue(UserID)   
+    #return json.dumps({"UserID" : aTup[0], "Drink" : aTup[1],"OrderID" : aTup[2]})
+
+run (host='192.168.0.107', port=8081, debug=True)
+'''
+try:
+    GPIO.cleanup()
+    run (host='192.168.0.107', port=8081, debug=True)
+
+except KeyboardInterrupt:    
+    GPIO.cleanup()
+'''
 

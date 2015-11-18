@@ -26,11 +26,11 @@ def createDB():
                         )''')
 
         #insert a row of data
-        c.execute("INSERT INTO drinks VALUES( 1,'Rum Neat'        ,18, 0, 0)")
-        c.execute("INSERT INTO drinks VALUES( 2,'Vodka Neat'      , 0,18, 0)")
-        c.execute("INSERT INTO drinks VALUES( 3,'Rum & Coke'      ,18, 0,39)")
-        c.execute("INSERT INTO drinks VALUES( 4,'Vodka & Coke'    , 0,18,39)")
-        c.execute("INSERT INTO drinks VALUES( 5,'Coke'            , 0, 0,39)")
+        c.execute("INSERT INTO drinks VALUES( 1,'Rum Neat'        , 9, 0, 0)")
+        c.execute("INSERT INTO drinks VALUES( 2,'Vodka Neat'      , 0, 9, 0)")
+        c.execute("INSERT INTO drinks VALUES( 3,'Rum & Coke'      , 9, 0,18)")
+        c.execute("INSERT INTO drinks VALUES( 4,'Vodka & Coke'    , 0, 9,18)")
+        c.execute("INSERT INTO drinks VALUES( 5,'Coke'            , 0, 0,18)")
 
         #Save (commit) the changes
         conn.commit()
@@ -41,6 +41,6 @@ def createDB():
         conn.close()
         
     else:
-        print 'drinktionary.db already exists in current directory ...exiting'
+        print 'drinktionary.db already exists in current directory ...moving on'
 
 createDB()

@@ -2,6 +2,8 @@
 
 from collections import deque
 from collections import namedtuple
+from DB_ControllerV2 import getDatabaseOutput
+from GPIO_processor import makeDrink
 
 theQueue = deque()
 OrderNumber = 0
@@ -53,7 +55,21 @@ def firstInQueue(UserID):
     else:
         aTup = ("Not Yet", "Not Yet","Not Yet")
         return aTup
-    
+
+def beginDrinkPouring(OrderID):
+    global theQueue
+    checkTup = theQueue.popleft()
+    print "OrderID" + str(OrderID)
+    print "checkTup.OrderNumber" + str(checkTup.OrderNumber)
+    if int(OrderID) == int(checkTup.OrderNumber):
+        print "OrderID == checkTup.OrderNumber"
+        aTup = getDatabaseOutput(checkTup.Drink)
+        #print aTup
+        makeDrink(aTup)
+        return "Success Pouring Drink"
+    else:
+        print "OrderID != checkTup.OrderNumber"
+        return "You've had enough for one night"
 '''
 def test():
     tup = ("Mr_Android", "Rum & Coke")
@@ -62,15 +78,8 @@ def test():
     addAndroidToQueue(tup)
     tup = ("Mr_Android", "Vodka & Coke")
     addAndroidToQueue(tup)
-    firstInQueue()
-  
-    global theQueue
-    for item in theQueue:
-        print item
-    removeOrderFromQueue(3)
-    for item in theQueue:
-        print item
-       
+    beginDrinkPouring("1")
+           
 test()
 
 
