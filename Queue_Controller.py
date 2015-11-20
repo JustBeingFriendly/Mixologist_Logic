@@ -20,15 +20,16 @@ def addAndroidToQueue(inTuple):
     orderNumAndTime = (OrderNumber, timeTillPour)
     return orderNumAndTime
     
-def addWebToQueue(inTuple):
+def addWebToQueue(DrinkName):
     global OrderNumber
     global theQueue
     OrderNumber += 1
-    aTuple = order(inTuple[0], inTuple[1], OrderNumber)#0 = UserID, 1 = DrinkName    
+    aTuple = order('Mr_Web', DrinkName, OrderNumber)#0 = UserID, 1 = DrinkName    
     theQueue.append(aTuple)
 
 def removeOrderFromQueue(OrderID):
     global theQueue
+    print "before remove:\n" + str(theQueue)
     tempQueue = deque()
     for item in theQueue:
         if item[2] != int(OrderID):
@@ -36,6 +37,7 @@ def removeOrderFromQueue(OrderID):
     theQueue.clear()
     theQueue = tempQueue
     tempQueue = deque()
+    print "after remove:\n" + str(theQueue)
         
 def userOrderQueue(UserID):
     global theQueue
@@ -44,6 +46,7 @@ def userOrderQueue(UserID):
         if (item[0] == UserID):
             tup = (item[1],item[2])
             aList.append(tup)
+    #print aList
     return aList
 
 def firstInQueue(UserID):
