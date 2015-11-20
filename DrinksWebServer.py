@@ -185,16 +185,31 @@ def drink_cansel():
   dLength = len(dList)
   
   global stringList
-  stringList = [stringONE, stringTWO, stringTHREE]
-  for item in stringList:
-      item = '<i>EMPTY</i>'
+
+  stringONE = '<i>EMPTY</i>'
+  stringTWO = '<i>EMPTY</i>'
+  stringTHREE = '<i>EMPTY</i>'
+
 
   i = 0
+  '''
   if 'submitButton:10' in request.POST:
       while i < dLength:            
           stringList[i] = (str(dList[i][0]) + ", OrderID:" + str(dList[i][1]))          
           i += 1
+  '''
   print "orderQueue" + str(dList)
+
+  if 'submitButton:10' in request.POST:
+    if dLength == 1:
+      stringONE = (str(dList[0][0]) + ", OrderID:" + str(dList[0][1]))
+      
+    if dLength == 2:
+      stringTWO = (str(dList[1][0]) + ", OrderID:" + str(dList[1][1]))
+      
+    if dLength == 3:
+      stringTHREE = (str(dList[2][0]) + ", OrderID:" + str(dList[2][1]))
+  
   return '''<style type="text/css">
 body {background-color: #42463E;}
 button {background-color:#C7BDAB;}
@@ -209,22 +224,21 @@ h1, h2 {color:#CCC; font-family: Arial, Helvetica, sans-serif;}
     <td>CANCEL BUTTON</td>
   </tr>
   <tr>
-    <td>''', stringList[0],'''</td>
+    <td>''', stringONE,'''</td>
     <td><form action="" method="post"><button style="width:200px; height:50px" name="submitButton:11">Cancel</button></form></td>
   </tr>
   <tr>
-    <td>''', stringList[1],'''</td>
+    <td>''', stringTWO,'''</td>
     <td><form action="" method="post"><button style="width:200px; height:50px" name="submitButton:12">Cancel</button></form></td>
     <tr>
-    <td>''', stringList[2],'''</td>
+    <td>''', stringTHREE,'''</td>
     <td><form action="" method="post"><button style="width:200px; height:50px" name="submitButton:13">Cancel</button></form></td>
   </tr>
 </table>
 </div>
 '''
 
-  if 'submitButton:11' in request.POST:
-    global dList
+  if 'submitButton:11' in request.POST:    
     print "submitButton:11" + str(dList) # this is how I know it's not firing
     if stringList[0] == '<i>EMPTY</i>':
       return('''<style type="text/css">
