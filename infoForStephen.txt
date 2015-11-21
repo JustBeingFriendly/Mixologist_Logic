@@ -19,5 +19,14 @@ V) Line: 230,235,249,263
   not really anything to check, thses are just the lines calling the 
   cancelations form the list. 
 
-NotaBene// to implement this file, just place in the directory with the other  app server and run as normal, should be good as gold :) The part im most nervous about is the way i get the lists from your script, thats task number IV above other than that shes all good when i test it here. Also i provided a copy of the bottle.py in case you needed it 
+NotaBene// to implement this file, just place in the directory with the other  
+app server and run as normal, should be good as gold :) 
+The part im most nervous about is the way i get the lists from your script, 
+thats task number IV above other than that shes all good when i test it here. 
+Also i provided a copy of the bottle.py in case you needed it 
   
+drinktionary.db already exists in current directory ...moving on
+Traceback (most recent call last):
+  File "./drinksHTML.py", line 6, in <module>
+    from Queue_Controller import addWebToQueue, removeFromQueue, userOrderQueue
+ImportError: cannot import name removeFromQueue

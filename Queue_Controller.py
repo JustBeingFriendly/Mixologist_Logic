@@ -3,6 +3,7 @@
 from collections import deque
 from collections import namedtuple
 from DB_ControllerV2 import getDatabaseOutput
+#import GPIO_processor  
 from GPIO_processor import makeDrink
 
 theQueue = deque()
@@ -29,7 +30,6 @@ def addWebToQueue(DrinkName):
 
 def removeOrderFromQueue(OrderID):
     global theQueue
-    print "before remove:\n" + str(theQueue)
     tempQueue = deque()
     for item in theQueue:
         if item[2] != int(OrderID):
@@ -37,7 +37,6 @@ def removeOrderFromQueue(OrderID):
     theQueue.clear()
     theQueue = tempQueue
     tempQueue = deque()
-    print "after remove:\n" + str(theQueue)
         
 def userOrderQueue(UserID):
     global theQueue
@@ -46,7 +45,6 @@ def userOrderQueue(UserID):
         if (item[0] == UserID):
             tup = (item[1],item[2])
             aList.append(tup)
-    #print aList
     return aList
 
 def firstInQueue(UserID):
@@ -54,6 +52,9 @@ def firstInQueue(UserID):
     if theQueue:
         aTup = theQueue[0]
         if aTup[0] == UserID:
+            return aTup
+        else:
+            aTup = ("Not Yet", "Not Yet","Not Yet")
             return aTup
     else:
         aTup = ("Not Yet", "Not Yet","Not Yet")
@@ -66,8 +67,7 @@ def beginDrinkPouring(OrderID):
     print "checkTup.OrderNumber" + str(checkTup.OrderNumber)
     if int(OrderID) == int(checkTup.OrderNumber):
         print "OrderID == checkTup.OrderNumber"
-        aTup = getDatabaseOutput(checkTup.Drink)
-        #print aTup
+        aTup = getDatabaseOutput(checkTup.Drink)        
         makeDrink(aTup)
         return "Success Pouring Drink"
     else:

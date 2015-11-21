@@ -5,6 +5,7 @@ import json
 import sqlite3
 import RPi.GPIO as GPIO
 from Queue_Controller import addAndroidToQueue, userOrderQueue, removeOrderFromQueue, firstInQueue, beginDrinkPouring
+from DB_ControllerV2 import get_drinks_List
 
 #This uiytrjyutd a json return
 @route('/drinksList', method='GET')
@@ -16,17 +17,6 @@ def drink_send():
         data = {"DrinkName" : item}
         jsonObject.append(data)
     return json.dumps(jsonObject)
-
-#Retrieves available drinks list from drinktionary
-def get_drinks_List():
-    conn = sqlite3.connect('drinktionary.db')
-    c = conn.cursor()    
-    c.execute('SELECT name FROM drinks')
-    drinkList = []    
-    for row in c:
-        drinkList.append(row[0])        
-    conn.close()
-    return drinkList
 
 #Receives a json object, process it, then return ordernumber and time till ready
 @route('/chooseDrink', method='PUT')
@@ -63,16 +53,11 @@ def pourTheDrink():
     OrderID = request.json['OrderID']
     aString = beginDrinkPouring(OrderID)
     return ({"ServerSays" : aString})
-    #aTup = firstInQueue(UserID)   
-    #return json.dumps({"UserID" : aTup[0], "Drink" : aTup[1],"OrderID" : aTup[2]})
 
-run (host='192.168.0.107', port=8081, debug=True)
-'''
 try:
-    GPIO.cleanup()
     run (host='192.168.0.107', port=8081, debug=True)
 
 except KeyboardInterrupt:    
     GPIO.cleanup()
-'''
+
 

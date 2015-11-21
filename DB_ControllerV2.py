@@ -3,13 +3,13 @@
 import sqlite3
 import sys
 import os
-
 from CreateDrinktionaryDB import createDB
+
+dbName = 'drinktionary.db'
 
 #Query database with name of drink, sets how many revolutions the flowmeter will do
 def getDatabaseOutput(drinkRequest):
-
-    dbName = 'drinktionary.db'
+    
     drinkName = ""
     Rum = 0
     Vodka = 0
@@ -36,3 +36,17 @@ def getDatabaseOutput(drinkRequest):
     conn.close()
     aTup = (Rum, Vodka, Coke)
     return aTup
+
+
+def get_drinks_List():
+    if not os.path.exists(dbName):
+        DBCreator = createDB
+        
+    conn = sqlite3.connect(dbName)
+    c = conn.cursor()    
+    c.execute('SELECT name FROM drinks')
+    drinkList = []    
+    for row in c:
+        drinkList.append(row[0])        
+    conn.close()
+    return drinkList
