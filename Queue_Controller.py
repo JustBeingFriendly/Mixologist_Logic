@@ -17,6 +17,7 @@ def addAndroidToQueue(inTuple):
     OrderNumber += 1
     aTuple = order(inTuple[0], inTuple[1], OrderNumber)    
     theQueue.append(aTuple)
+    print "\nPlace - Drink: " + str(aTuple[1]) + ", OrderID: " + str(aTuple[2]) + ", ClientID: " + str(aTuple[0])
     timeTillPour = len(theQueue) * 30
     orderNumAndTime = (OrderNumber, timeTillPour)
     return orderNumAndTime
@@ -27,6 +28,7 @@ def addWebToQueue(DrinkName):
     OrderNumber += 1
     aTuple = order('Mr_Web', DrinkName, OrderNumber)#0 = UserID, 1 = DrinkName    
     theQueue.append(aTuple)
+    print "\nPlace - Drink: " + str(aTuple[1]) + ", OrderID: " + str(aTuple[2]) + ", ClientID: " + str(aTuple[0])
 
 def removeOrderFromQueue(OrderID):
     global theQueue
@@ -34,6 +36,8 @@ def removeOrderFromQueue(OrderID):
     for item in theQueue:
         if item[2] != int(OrderID):
             tempQueue.append(item)
+        else:
+            print "\nCancel  - Drink: " + str(item[1]) + ", OrderID: " + str(item[2]) + ", ClientID: " + str(item[0])
     theQueue.clear()
     theQueue = tempQueue
     tempQueue = deque()
@@ -62,12 +66,11 @@ def firstInQueue(UserID):
 
 def beginDrinkPouring(OrderID):
     global theQueue
-    checkTup = theQueue.popleft()
-    print "OrderID" + str(OrderID)
-    print "checkTup.OrderNumber" + str(checkTup.OrderNumber)
+    checkTup = theQueue.popleft()    
     if int(OrderID) == int(checkTup.OrderNumber):
-        print "OrderID == checkTup.OrderNumber"
-        aTup = getDatabaseOutput(checkTup.Drink)        
+        #print "OrderID == checkTup.OrderNumber"
+        aTup = getDatabaseOutput(checkTup.Drink)
+        print "\nPour  - Drink: " + str(checkTup[1]) + ", OrderID: " + str(checkTup[2]) + ", ClientID: " + str(checkTup[0])
         makeDrink(aTup)
         return "Success Pouring Drink"
     else:

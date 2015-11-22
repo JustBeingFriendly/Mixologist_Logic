@@ -17,6 +17,33 @@ GPIO.setup(16,GPIO.OUT) #Solenoid_1
 GPIO.setup(20,GPIO.OUT) #Solenoid_2
 GPIO.setup(21,GPIO.OUT) #Solenoid_3
 
+GPIO.output(16, GPIO.HIGH)
+GPIO.output(20, GPIO.HIGH)
+GPIO.output(21, GPIO.HIGH)
+
+def testGPIO():   
+    nums =[16, 20, 21]
+    timToSleep = 0.03
+    for num in nums:         
+        print "GPIO Pin:" + str(num) + " on"
+        GPIO.output(num, GPIO.LOW)            
+        sleep(timToSleep)
+        print "GPIO Pin:" + str(num) + " off"
+        GPIO.output(num, GPIO.HIGH)            
+        sleep(timToSleep)
+
+    sleep(0.3)
+    
+    for num in reversed(nums):         
+        print "GPIO Pin:" + str(num) + " on"
+        GPIO.output(num, GPIO.LOW)            
+        sleep(timToSleep)
+        print "GPIO Pin:" + str(num) + " off"
+        GPIO.output(num, GPIO.HIGH)            
+        sleep(timToSleep)
+        
+#testGPIO()
+
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Flowmeter_1
 GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Flowmeter_2
 GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Flowmeter_3
@@ -44,7 +71,7 @@ def liquidflow_C_Callback(channel):
         print "Coke:       " + str(rotationsC) + ":     " + datetime.now().time().isoformat()
 
 GPIO.add_event_detect(17, GPIO.FALLING, callback=liquidflow_A_Callback, bouncetime=bTime)
-GPIO.add_event_detect(27, GPIO.FALLING, callback=liquidflow_B_Callback, bouncetime=(bTime + 50))
+GPIO.add_event_detect(27, GPIO.FALLING, callback=liquidflow_B_Callback, bouncetime=bTime)
 GPIO.add_event_detect(22, GPIO.FALLING, callback=liquidflow_C_Callback, bouncetime=bTime)
 
 def processGPIO(rumNum, vodkaNum, cokeNum):
@@ -55,11 +82,10 @@ def processGPIO(rumNum, vodkaNum, cokeNum):
         global isC
 
         if rumNum != 0:
-            print "Liquid : Rotation : TimeStamp"
+            print "\nLiquid : Rotation : TimeStamp"
             isA = True
             global rotationsA
             rotationsA = 0
-            GPIO.output(16, GPIO.HIGH)
             GPIO.output(16, GPIO.LOW)       
             while rotationsA < rumNum:            
                 dumbNum = 1            
@@ -67,11 +93,10 @@ def processGPIO(rumNum, vodkaNum, cokeNum):
             isA = False
 
         if vodkaNum != 0:
-            print "Liquid : Rotation : TimeStamp"
+            print "\nLiquid : Rotation : TimeStamp"
             isB = True
             global rotationsB
             rotationsB = 0
-            GPIO.output(20, GPIO.HIGH)
             GPIO.output(20, GPIO.LOW)       
             while rotationsB < vodkaNum:            
                 dumbNum = 1            
@@ -79,11 +104,10 @@ def processGPIO(rumNum, vodkaNum, cokeNum):
             isB = False
 
         if cokeNum != 0:
-            print "Liquid : Rotation : TimeStamp"
+            print "\nLiquid : Rotation : TimeStamp"
             isC = True
             global rotationsC
             rotationsC = 0
-            GPIO.output(21, GPIO.HIGH)
             GPIO.output(21, GPIO.LOW)       
             while rotationsC < cokeNum:            
                 dumbNum = 1            

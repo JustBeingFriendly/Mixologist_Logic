@@ -5,7 +5,7 @@ from bottle import get, post, request, run, load, os, install, sys, route, templ
 from bottle_sqlite import SQLitePlugin
 from Queue_Controller import addWebToQueue, removeOrderFromQueue, userOrderQueue, addAndroidToQueue, userOrderQueue, firstInQueue, beginDrinkPouring
 import json
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 from DB_ControllerV2 import get_drinks_List
 import cherrypy
 
@@ -200,7 +200,7 @@ def drink_cansel():
     if dLength >= 2:
       stringTWO = (str(dList[1][0]) + ", OrderID:" + str(dList[1][1]))     
 
-    if dLength == 3:
+    if dLength >= 3:
       stringTHREE = (str(dList[2][0]) + ", OrderID:" + str(dList[2][1]))
     
     return '''<style type="text/css">
@@ -310,7 +310,6 @@ def cancel_Order():
 def getFirstInQueue():
     UserID = request.json['UserID']
     aTup = firstInQueue(UserID)
-    print "firstInQueue" +str(aTup)
     return json.dumps({"UserID" : aTup[0], "Drink" : aTup[1],"OrderID" : aTup[2]})
 
 @route('/pourDrink', method='PUT')
@@ -319,10 +318,13 @@ def pourTheDrink():
     aString = beginDrinkPouring(OrderID)
     return ({"ServerSays" : aString})
 
-
 #send all the above info to the destination below.
+#run(host=serverIP, port=serverPort, debug=True)
+
+
 try:
-    run(server='cherrypy', host=serverIP, port=serverPort, debug=True)
+    run(server='cherrypy', host=serverIP, port=serverPort, debug=False)
+    #run(host=serverIP, port=serverPort, debug=True)
 except KeyboardInterrupt:
-    print "GPIO.cleanup()"
-    GPIO.cleanup()
+    cherrypy.engine.exit()
+
