@@ -3,6 +3,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 from datetime import datetime
+import subprocess
 bTime = 170
 
 isA = False
@@ -25,24 +26,32 @@ def testGPIO():
     nums =[16, 20, 21]
     timToSleep = 0.03
     for num in nums:         
-        print "GPIO Pin:" + str(num) + " on"
+        print "GPIO Pin:" + str(num) + " on  " + datetime.now().time().isoformat()
         GPIO.output(num, GPIO.LOW)            
-        sleep(timToSleep)
-        print "GPIO Pin:" + str(num) + " off"
+        sleep(0.01) 
+        print "GPIO Pin:" + str(num) + " off " + datetime.now().time().isoformat()
         GPIO.output(num, GPIO.HIGH)            
         sleep(timToSleep)
 
     sleep(0.3)
     
     for num in reversed(nums):         
-        print "GPIO Pin:" + str(num) + " on"
+        print "GPIO Pin:" + str(num) + " on  " + datetime.now().time().isoformat()
         GPIO.output(num, GPIO.LOW)            
-        sleep(timToSleep)
-        print "GPIO Pin:" + str(num) + " off"
+        sleep(0.01)
+        print "GPIO Pin:" + str(num) + " off " + datetime.now().time().isoformat()
         GPIO.output(num, GPIO.HIGH)            
         sleep(timToSleep)
+    try:
+        subprocess.call(["/usr/games/sl", "-a"])
+    except:
+        print "\nMFW NO Loco installed >:o"
         
-#testGPIO()
+    print "\n------------------------"
+    print " GPIO OK - Lets do this"
+    print "------------------------\n"
+    
+testGPIO()
 
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Flowmeter_1
 GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP) #Flowmeter_2
@@ -82,7 +91,9 @@ def processGPIO(rumNum, vodkaNum, cokeNum):
         global isC
 
         if rumNum != 0:
-            print "\nLiquid : Rotation : TimeStamp"
+            print "\n*****************************"
+            print "Liquid : Rotation : TimeStamp"
+            print "*****************************"
             isA = True
             global rotationsA
             rotationsA = 0
@@ -113,7 +124,9 @@ def processGPIO(rumNum, vodkaNum, cokeNum):
                 dumbNum = 1            
             GPIO.output(21, GPIO.HIGH)
             isC = False          
-        
+        print "\n***********************"
+        print "Pour Complete"
+        print "***********************"
     except KeyboardInterrupt:    
         GPIO.cleanup()
         
