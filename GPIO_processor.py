@@ -80,7 +80,7 @@ def liquidflow_C_Callback(channel):
         print "Coke:       " + str(rotationsC) + ":     " + datetime.now().time().isoformat()
 
 GPIO.add_event_detect(17, GPIO.FALLING, callback=liquidflow_A_Callback, bouncetime=bTime)
-GPIO.add_event_detect(27, GPIO.FALLING, callback=liquidflow_B_Callback, bouncetime=bTime)
+GPIO.add_event_detect(27, GPIO.FALLING, callback=liquidflow_B_Callback, bouncetime=(bTime + 50))
 GPIO.add_event_detect(22, GPIO.FALLING, callback=liquidflow_C_Callback, bouncetime=bTime)
 
 def processGPIO(rumNum, vodkaNum, cokeNum):

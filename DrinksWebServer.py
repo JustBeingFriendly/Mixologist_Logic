@@ -60,7 +60,13 @@ def drinks(db): #query the DB for names and ID's of the drinks to use for the HT
       nameFIVE = 'Plese Set Drink!'
     else:
       nameFIVE = row['NAME']
-
+    print "\n"
+    print nameONE
+    print nameTWO
+    print nameTHREE
+    print nameFOUR
+    print nameFIVE
+    print "Web Client DrinkList sent"
 #mark up the page with a basic HTML frame with button variables    
     return '''
             <style type="text/css">
@@ -271,15 +277,18 @@ def drink_cansel():
                 </style><div align="center"><h2>Drink Order Cancled - No.''', (str(dList[2][1])),'''  </h2></div>''')
 
 #---WebAPI for Android
-#This uiytrjyutd a json return
+#This returns the drinklist to android client via a json return
 @route('/drinksList', method='GET')
 def drink_send():
     drinkList = []
     drinkList = get_drinks_List()    
     jsonObject = []
+    print "\n"
     for item in drinkList:
-        data = {"DrinkName" : item}
+        print item
+        data = {"DrinkName" : item}        
         jsonObject.append(data)
+    print "Android Client DrinkList sent"
     return json.dumps(jsonObject)
 
 #Receives a json object, process it, then return ordernumber and time till ready

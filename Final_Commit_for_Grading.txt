@@ -1,0 +1,18 @@
+Hi
+
+There are a lot of files in here used for development, some where lost by accident but
+the main ones are still here
+
+The core files of the project submitted for marking are:
+
+-DrinksWebServer.py
+-Queue_Controller.py
+-GPIO_processor.py
+-DB_ControllerV2.py
+-CreateDrinktionaryDB.py
+
+The accompanying android client app can be found at:
+
+https://github.com/JustBeingFriendly/Sierra
+
+Thanks
